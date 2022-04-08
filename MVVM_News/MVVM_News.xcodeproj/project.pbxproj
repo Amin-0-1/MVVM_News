@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		300BAC0228006A1F00B63C7F /* ViewControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300BAC0128006A1F00B63C7F /* ViewControllable.swift */; };
 		3024929127FD9AE200CA6DCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024929027FD9AE200CA6DCD /* AppDelegate.swift */; };
 		3024929327FD9AE200CA6DCD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024929227FD9AE200CA6DCD /* SceneDelegate.swift */; };
 		3024929B27FD9AE200CA6DCD /* MVVM_News.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3024929927FD9AE200CA6DCD /* MVVM_News.xcdatamodeld */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		300BAC0128006A1F00B63C7F /* ViewControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllable.swift; sourceTree = "<group>"; };
 		3024928D27FD9AE200CA6DCD /* MVVM_News.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVM_News.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3024929027FD9AE200CA6DCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3024929227FD9AE200CA6DCD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		300BAC0028006A1000B63C7F /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				300BAC0128006A1F00B63C7F /* ViewControllable.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		3024928427FD9AE200CA6DCD = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +110,7 @@
 		3024928F27FD9AE200CA6DCD /* MVVM_News */ = {
 			isa = PBXGroup;
 			children = (
+				300BAC0028006A1000B63C7F /* Base */,
 				302492DB27FDB38700CA6DCD /* Extensions */,
 				302492AD27FD9EE000CA6DCD /* Scenes */,
 				302492BB27FDA43300CA6DCD /* Repository */,
@@ -397,6 +408,7 @@
 				302492CC27FDA6C900CA6DCD /* StartingPoint.swift in Sources */,
 				302492AA27FD9B1600CA6DCD /* OnBoardingVC.swift in Sources */,
 				30829F0627FEFAD900B06773 /* ConfigurationsVC.swift in Sources */,
+				300BAC0228006A1F00B63C7F /* ViewControllable.swift in Sources */,
 				30D7C9D827FF4F2C00495530 /* InterestCell.swift in Sources */,
 				30D7C9C627FF1BA300495530 /* Categories.swift in Sources */,
 			);

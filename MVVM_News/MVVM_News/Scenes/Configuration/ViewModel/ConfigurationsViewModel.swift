@@ -21,9 +21,15 @@ protocol ConfigurationsViewModelInterface{
     var choosedCountry: BehaviorSubject<String>{get set}
     var isValidSubmition: PublishSubject<Bool>{get}
     var submitted:PublishSubject<Bool>{get set}
+    var loading:PublishSubject<Bool>{get}
+    var saved: PublishSubject<Void>{get}
 }
 
 class ConfigurationsViewModel:ConfigurationsViewModelInterface{
+    var saved: PublishSubject<Void>
+    
+    var loading: PublishSubject<Bool>
+    
     var submitted: PublishSubject<Bool>
     
     var isValidSubmition: PublishSubject<Bool>
@@ -56,6 +62,8 @@ class ConfigurationsViewModel:ConfigurationsViewModelInterface{
         choosedCountry = BehaviorSubject(value: "")
         isValidSubmition = PublishSubject()
         submitted = PublishSubject()
+        loading = PublishSubject()
+        saved = PublishSubject()
         bind()
     }
     
@@ -106,17 +114,23 @@ class ConfigurationsViewModel:ConfigurationsViewModelInterface{
         }
     }
     private func finalizeConfigurations(){
-        guard let country = try? choosedCountry.value(), let interests = try? allInterests.value() else {return}
+        loading.onNext(true)
+        guard let country = try? choosedCountry.value(), let interests = try? allInterests.value() else {loading.onNext(false);return}
         MyUserDefaults.set(value: country, forKey: .country)
         
 
         guard let encodedInterests = try? JSONEncoder().encode(interests) else {
-            print( "error")
+            loading.onNext(false)
             return
         }
         
-        MyUserDefaults.set(value: encodedInterests, forKey: .interests)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            guard let self = self else {return}
+            self.saved.onNext(())
+            self.loading.onNext(false)
+        }
         
+        MyUserDefaults.set(value: encodedInterests, forKey: .interests)
         
     }
 }

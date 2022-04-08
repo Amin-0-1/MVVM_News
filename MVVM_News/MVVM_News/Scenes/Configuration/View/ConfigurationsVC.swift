@@ -9,8 +9,9 @@ import UIKit
 import CountryPickerView
 import RxCocoa
 import RxSwift
-class ConfigurationsVC: UIViewController {
-    
+import Toast
+class ConfigurationsVC: UIViewController,ViewControllable{
+
     
     @IBOutlet private weak var uiFlagImage: UIImageView!
     @IBOutlet private weak var uiTextField: UITextField!
@@ -32,6 +33,19 @@ class ConfigurationsVC: UIViewController {
     
     private func bind(){
         viewModel.isValidSubmition.bind(to: uiSubmitButton.rx.isEnabled).disposed(by: bag)
+        viewModel.loading.bind(to: view.rx.isUserInteractionEnabled).disposed(by: bag)
+        viewModel.loading.subscribe{ [weak self] val in
+            guard let self = self,let val = val.element else {return}
+            if val{
+                self.showLoading()
+                
+            }else{
+                self.hideLoading()
+            }
+        }.disposed(by: bag)
+        viewModel.saved.bind{
+            StartingPoint.navigateToHome()
+        }.disposed(by: bag)
         
     }
     private func registerCollectionCell(){
@@ -62,12 +76,12 @@ class ConfigurationsVC: UIViewController {
         uiFlagImage.layer.cornerRadius = uiFlagImage.frame.height / 2
     }
     
-    @IBAction func uiSubmit(_ sender: Any) {
-        viewModel.submitted.onNext(true)
-    }
-    
     @objc func onTextFieldPressed(){
         countryPickerView.showCountriesList(from: self)
+    }
+    
+    @IBAction func uiSubmit(_ sender: Any) {
+        viewModel.submitted.onNext(true)
     }
 }
 
