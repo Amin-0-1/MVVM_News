@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="InterestCellID" id="gTV-IL-0wX" customClass="InterestCell" customModule="MVVM_News" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="431" height="207"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="431" height="207"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nda-AV-xdy">
+                        <rect key="frame" x="0.0" y="0.0" width="431" height="207"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="j30-9I-hcU">
+                                <rect key="frame" x="0.0" y="0.0" width="431" height="207"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vah-gt-fcX">
+                                        <rect key="frame" x="8" y="52" width="387" height="113"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="A6I-F1-0pQ">
+                                        <rect key="frame" x="403" y="52.5" width="20" height="112"/>
+                                    </imageView>
+                                </subviews>
+                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="j30-9I-hcU" secondAttribute="trailing" id="DnC-CJ-x4J"/>
+                            <constraint firstItem="j30-9I-hcU" firstAttribute="top" secondItem="nda-AV-xdy" secondAttribute="top" id="Mwc-sc-xds"/>
+                            <constraint firstItem="j30-9I-hcU" firstAttribute="leading" secondItem="nda-AV-xdy" secondAttribute="leading" id="Pnt-kJ-Slt"/>
+                            <constraint firstAttribute="bottom" secondItem="j30-9I-hcU" secondAttribute="bottom" id="Sws-20-5Jz"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="nda-AV-xdy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="B7u-2Q-MCq"/>
+                <constraint firstAttribute="trailing" secondItem="nda-AV-xdy" secondAttribute="trailing" id="H2I-F4-yBA"/>
+                <constraint firstAttribute="bottom" secondItem="nda-AV-xdy" secondAttribute="bottom" id="jic-zY-D9s"/>
+                <constraint firstItem="nda-AV-xdy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ujg-pl-Jdt"/>
+            </constraints>
+            <size key="customSize" width="431" height="207"/>
+            <connections>
+                <outlet property="uiImage" destination="A6I-F1-0pQ" id="7J9-Oc-OAi"/>
+                <outlet property="uiLabel" destination="Vah-gt-fcX" id="K4g-6J-Ptm"/>
+            </connections>
+            <point key="canvasLocation" x="-138.40579710144928" y="134.26339285714286"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
+    </resources>
+</document>
