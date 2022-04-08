@@ -127,6 +127,7 @@ class ConfigurationsViewModel:ConfigurationsViewModelInterface{
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
             guard let self = self else {return}
             self.saved.onNext(())
+            MyUserDefaults.set(value: true, forKey: .isFirstInit)
             self.loading.onNext(false)
         }
         
