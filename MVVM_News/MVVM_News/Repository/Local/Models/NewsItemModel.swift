@@ -16,12 +16,13 @@ class NewsItemModel:Object{
     @Persisted var publishedAt:String?
     @Persisted var source:NewsItemSource?
     @Persisted var category:String?
+    @Persisted var content:String?
     
     func mapToArticles()->Article{
  
         let source = Source(id: self.source?.id , name: self.source?.name ?? "")
         
-        return  Article(source: source, author: self.author, title: self.title ?? "", articleDescription: self.desc, url: self.imageURL ?? "", urlToImage: self.imageURL, publishedAt: self.publishedAt ?? "", content: nil)
+        return  Article(source: source, author: self.author, title: self.title ?? "", articleDescription: self.desc, url: self.url ?? "", urlToImage: self.imageURL, publishedAt: self.publishedAt ?? "", content: self.content)
 //        return
     }
 }

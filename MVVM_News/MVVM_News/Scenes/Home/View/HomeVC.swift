@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SDWebImage
-class HomeVC: UIViewController , UISearchBarDelegate{
+class HomeVC: UIViewController , UISearchBarDelegate,ViewControllable{
     
     private var viewModel:HomeViewModelInterface!
     private var bag:DisposeBag!
@@ -61,6 +61,17 @@ class HomeVC: UIViewController , UISearchBarDelegate{
             vc.model = model
             self.navigationController?.pushViewController(vc, animated: true)
         }.disposed(by: bag)
+        
+        viewModel.showLoading.bind{ [weak self] in
+            guard let self = self else {return}
+            self.showLoading()
+        }.disposed(by: bag)
+        
+        viewModel.hideLoading.bind{ [weak self] in
+            guard let self = self else {return}
+            self.hideLoading()
+        }.disposed(by: bag)
+        
     }
     private func configureTable(){
         uiTableView.rowHeight = UITableView.automaticDimension

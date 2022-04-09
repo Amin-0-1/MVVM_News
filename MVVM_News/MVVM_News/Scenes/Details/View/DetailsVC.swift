@@ -46,7 +46,7 @@ class DetailsVC: UIViewController {
         uiImageView.layer.masksToBounds = false
         
         uiImage.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
-        uiImage.sd_setImage(with: URL(string: model.urlToImage ?? ""), placeholderImage: UIImage(named: "placeholder"))
+        uiImage.sd_setImage(with: URL(string: model.urlToImage ?? ""), placeholderImage: UIImage(named: "searchX"))
         
     }
 
@@ -57,7 +57,7 @@ class DetailsVC: UIViewController {
 
         let fullString = NSMutableAttributedString()
 
-        let desc = NSAttributedString(string: "\(description)\n\n", attributes: [NSAttributedString.Key.foregroundColor :UIColor.darkGray ])
+        let desc = NSAttributedString(string: "\(description)\n\n", attributes: [NSAttributedString.Key.foregroundColor :UIColor.lightGray ])
 
         let cont = NSAttributedString(string: content, attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         fullString.append(desc)
@@ -67,8 +67,7 @@ class DetailsVC: UIViewController {
     }
     
     func setupSourceButton() {
-//        guard let _ = model.url else { uiSourceButton.isHidden = true ; return }
-        
+
         uiSourceButton.layer.cornerRadius = uiSourceButton.layer.frame.height / 2
         uiSourceButton.layer.shadowOpacity = 0.8
         uiSourceButton.layer.shadowRadius = 1
@@ -76,7 +75,7 @@ class DetailsVC: UIViewController {
     }
 
     @IBAction func uiSourcebtn(_ sender: UIButton) {
-//        guard let url = itemNews.url else { return }
+        
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [.curveEaseOut]) {
             sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         } completion: { (_) in

@@ -38,7 +38,7 @@ struct Article: Codable {
         obj.desc = self.articleDescription
         obj.imageURL = self.urlToImage
         obj.publishedAt = self.publishedAt
-        
+        obj.content = self.content
         let source = NewsItemSource()
         source.id = self.source.id
         source.name = self.source.name

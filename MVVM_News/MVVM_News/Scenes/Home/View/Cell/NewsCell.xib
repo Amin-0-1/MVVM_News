@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="420" height="150"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ehl-vL-REd">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ehl-vL-REd">
                         <rect key="frame" x="0.0" y="0.0" width="420" height="145"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="exk-qz-Kfc">
@@ -45,6 +45,17 @@
                             <constraint firstItem="HOj-FX-O4z" firstAttribute="leading" secondItem="exk-qz-Kfc" secondAttribute="trailing" constant="16" id="lkr-xb-sPY"/>
                             <constraint firstItem="exk-qz-Kfc" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ehl-vL-REd" secondAttribute="top" constant="8" id="oqt-rK-64j"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadisu">
+                                <integer key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                <real key="value" value="0.59999999999999998"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <color key="backgroundColor" name="darkerBackground"/>

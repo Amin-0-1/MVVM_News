@@ -15,12 +15,18 @@ protocol HomeViewModelInterface{
     var selectedInterest:BehaviorRelay<String>{get}
     var searchObserver:PublishSubject<String?>{get set}
     var cancelSearch:PublishSubject<Void>{get}
+    var searchList:PublishSubject<[Article]>{get}
+    var showLoading:PublishSubject<Void>{get}
+    var hideLoading:PublishSubject<Void>{get}
     
-    
-    var fetch:PublishSubject<Void>{get set}
 }
 class HomeViewModel:HomeViewModelInterface{
-    var fetch: PublishSubject<Void>
+    var showLoading: PublishSubject<Void>
+    
+    var hideLoading: PublishSubject<Void>
+    
+    var searchList: PublishSubject<[Article]>
+    
     
     var cancelSearch: PublishSubject<Void>
     
@@ -46,12 +52,15 @@ class HomeViewModel:HomeViewModelInterface{
         searchObserver = PublishSubject()
         selectedInterest = BehaviorRelay(value: "")
         cancelSearch = PublishSubject()
-        fetch = PublishSubject()
+        searchList = PublishSubject()
+        showLoading = PublishSubject()
+        hideLoading = PublishSubject()
         country = ""
         categories = []
         getCountry()
         getInterests()
         bind()
+        showLoading.onNext(())
         repo.fetch()
         
     }
@@ -69,22 +78,23 @@ class HomeViewModel:HomeViewModelInterface{
     }
     
     private func bind(){
-        fetch.subscribe{[weak self] _ in
-//            self?.repo.fetch()
-        }.disposed(by: bag)
+
         cancelSearch.bind{[weak self] _ in
             guard let self = self else {return}
+            self.showLoading.onNext(())
             self.repo.fetch()
             
         }.disposed(by: bag)
         repo.articles.bind{[weak self] val in
             guard let self = self else {return}
+            self.hideLoading.onNext(())
             self.allNews.onNext(val)
 
         }.disposed(by: bag)
         selectedInterest.bind{ [weak self] category in
             guard let self = self else {return}
             self.repo.category.accept(category)
+            self.showLoading.onNext(())
             self.repo.fetch()
         }.disposed(by: bag)
         searchObserver.subscribe{[weak self] text in
@@ -92,6 +102,7 @@ class HomeViewModel:HomeViewModelInterface{
             guard let text = text.element else {return}
             guard let text = text else {return}
             if text.isEmpty{
+                self.showLoading.onNext(())
                 self.repo.fetch()
                 
             }else{
@@ -113,9 +124,9 @@ class HomeViewModel:HomeViewModelInterface{
                     
                     
                 }
+//                    self.searchList.onNext(results)
                 self.allNews.onNext(results)
             }
-            //            self.searchList.onNext(results)
         }.disposed(by: bag)
     }
 }

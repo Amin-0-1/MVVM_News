@@ -17,9 +17,13 @@ extension ViewControllable{
     func showLoading(){
         self.view.makeToastActivity(.center)
         self.view.isUserInteractionEnabled = false
+        self.view.subviews.forEach{$0.isUserInteractionEnabled = false}
     }
     func hideLoading(){
         self.view.hideAllToasts()
+        self.view.hideAllToasts(includeActivity: true, clearQueue: true)
         self.view.isUserInteractionEnabled = true
+        self.view.subviews.forEach{$0.isUserInteractionEnabled = true}
+
     }
 }
