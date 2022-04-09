@@ -38,7 +38,7 @@ This repo is simulating a news prodcast application, it gives your your top news
 # How To Build ?
 * Clone repo
 ```
-git clone https://github.com/Amin-0-1/Kadabra_iOS_Task.git
+git clone https://github.com/Amin-0-1/MVVM_News
 ```
 * run the project
 ```
