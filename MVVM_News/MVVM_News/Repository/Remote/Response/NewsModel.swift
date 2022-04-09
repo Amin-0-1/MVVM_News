@@ -7,7 +7,6 @@
 
 
 import Foundation
-
 // MARK: - RemoteInterface
 struct NewsModel: Codable {
     let status: String
@@ -31,6 +30,22 @@ struct Article: Codable {
         case articleDescription = "description"
         case url, urlToImage, publishedAt, content
     }
+    
+    func mapToRealm(obj:NewsItemModel){
+        obj.url = self.url
+        obj.title = self.title
+        obj.author = self.author
+        obj.desc = self.articleDescription
+        obj.imageURL = self.urlToImage
+        obj.publishedAt = self.publishedAt
+        
+        let source = NewsItemSource()
+        source.id = self.source.id
+        source.name = self.source.name
+        
+        obj.source = source
+    }
+
 }
 
 // MARK: - Source

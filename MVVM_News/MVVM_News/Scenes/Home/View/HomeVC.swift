@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SDWebImage
-class HomeVC: UIViewController, UISearchResultsUpdating ,UISearchControllerDelegate{
+class HomeVC: UIViewController , UISearchBarDelegate{
     
     private var viewModel:HomeViewModelInterface!
     private var bag:DisposeBag!
@@ -18,13 +18,15 @@ class HomeVC: UIViewController, UISearchResultsUpdating ,UISearchControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         bag = DisposeBag()
-        viewModel = HomeViewModel(remote: Remote())
+        viewModel = HomeViewModel(datasource: Repo(local: LocalDataSource(), remote: RemoteDatasource()))
+        configureTable()
+        bind()
         title = "INN"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
         configureNavBar()
-        bind()
-        configureTable()
         setupSearchBar()
+
     }
     
     private func configureNavBar(){
@@ -38,18 +40,26 @@ class HomeVC: UIViewController, UISearchResultsUpdating ,UISearchControllerDeleg
         categories.forEach { category in
             actions.append(UIAction(title: category, image: nil, handler: {[weak self] action in
                 guard let self = self else {return}
-                self.viewModel.selectedInterest.onNext(category)
+                self.viewModel.selectedInterest.accept(category)
             }))
         }
 
         return UIMenu(title: "Categories", image: UIImage(systemName: "list.bullet.rectangle")!, children: actions)
     }
     private func bind(){
-        viewModel.allNews.bind(to: uiTableView.rx.items){ table,index,element in
+        viewModel.allNews.bind(to: uiTableView.rx.items){ (table: UITableView, index: Int, element: Article) in
             guard let cell = table.dequeueReusableCell(withIdentifier: NewsCell._ID) as? NewsCell else {fatalError("unable to dequeue cell")}
             cell.configureCell(element: element)
             return cell
 
+        }.disposed(by: bag)
+        
+        
+        uiTableView.rx.modelSelected(Article.self).subscribe{ (model) in
+            guard let model = model.element else {return}
+            let vc = DetailsVC()
+            vc.model = model
+            self.navigationController?.pushViewController(vc, animated: true)
         }.disposed(by: bag)
     }
     private func configureTable(){
@@ -61,36 +71,19 @@ class HomeVC: UIViewController, UISearchResultsUpdating ,UISearchControllerDeleg
     func setupSearchBar() {
         
         let sc = UISearchController(searchResultsController: nil)
-        sc.searchResultsUpdater = self
-        sc.delegate = self
+//        sc.delegate = self
+        sc.searchBar.delegate = self
         sc.obscuresBackgroundDuringPresentation = false
         sc.searchBar.placeholder = "Search for something eg CNN"
         
         navigationItem.searchController = sc
     }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
-        
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.cancelSearch.onNext(())
     }
-    let array = [
-        "UUID().uuidStringasdfasdf asdfasdfasdf asdfasdfgasdf asdfasdfasd UUID().uuidStringasdfasdf asdfasdfasdf asdfasdfgasdf asdfasdfasd ",
-        "UUID().uuidStringasdfasdf asdfasdfasdf asdfasdfgasdf asdfasdfasd ",
-        "ass"
-    ]
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBar.rx.text.bind(to: viewModel.searchObserver).disposed(by: bag)
+    }
 
 }
-
-//extension HomeVC:{
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        3
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell._ID) as? NewsCell else {fatalError("unable to dequeue")}
-//        cell.uiDesc.text = array[indexPath.row]
-//        cell.uiDesc.textColor = .white
-//        cell.uiImage.image = UIImage(named: "details")
-//        return cell
-//    }
-//}

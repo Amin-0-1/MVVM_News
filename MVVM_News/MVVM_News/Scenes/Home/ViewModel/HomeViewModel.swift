@@ -10,58 +10,112 @@ import RxSwift
 import RxRelay
 
 protocol HomeViewModelInterface{
-    var allNews:BehaviorRelay<[Article]>{get}
+    var allNews:BehaviorSubject<[Article]>{get}
     var interests:BehaviorRelay<[String]>{get}
-    var selectedInterest:PublishSubject<String>{get}
+    var selectedInterest:BehaviorRelay<String>{get}
+    var searchObserver:PublishSubject<String?>{get set}
+    var cancelSearch:PublishSubject<Void>{get}
+    
+    
+    var fetch:PublishSubject<Void>{get set}
 }
 class HomeViewModel:HomeViewModelInterface{
-    var selectedInterest: PublishSubject<String>
+    var fetch: PublishSubject<Void>
+    
+    var cancelSearch: PublishSubject<Void>
+    
+    var searchObserver: PublishSubject<String?>
+    
+    var selectedInterest: BehaviorRelay<String>
     
     var interests: BehaviorRelay<[String]>
     
-    var allNews: BehaviorRelay<[Article]>
+    var allNews: BehaviorSubject<[Article]>
     
     
-    private var remote:RemoteInterface!
+    private var repo:RepoInterface!
     private var country:String
-    private lazy var selectedCategory:String = {
-        return categories[0].rawValue
-    }()
+    
     private var categories:[Categories]
     private var bag:DisposeBag!
-    init(remote:RemoteInterface){
-        self.remote = remote
+    init(datasource:RepoInterface){
+        self.repo = datasource
         bag = DisposeBag()
-        allNews = BehaviorRelay(value: [])
+        allNews = BehaviorSubject(value: [])
         interests = BehaviorRelay(value: [])
-        selectedInterest = PublishSubject()
+        searchObserver = PublishSubject()
+        selectedInterest = BehaviorRelay(value: "")
+        cancelSearch = PublishSubject()
+        fetch = PublishSubject()
         country = ""
         categories = []
         getCountry()
         getInterests()
-        remote.fetch(categories: categories, country: country)
-        
         bind()
+        repo.fetch()
+        
     }
     private func getCountry(){
         guard let country = MyUserDefaults.getValue(forKey: .country) as? String else {return}
         self.country = country
+        repo.country.accept(country)
     }
     private func getInterests(){
         guard let data = MyUserDefaults.getValue(forKey: .interests) as? Data else {return}
         guard let decodedData = try? JSONDecoder().decode([String].self, from: data) else {return}
         interests.accept(decodedData)
         categories = decodedData.compactMap{Categories(rawValue: $0)}
+        selectedInterest.accept(categories[0].rawValue)
     }
     
     private func bind(){
-        remote.articles.bind{[weak self] val in
+        fetch.subscribe{[weak self] _ in
+//            self?.repo.fetch()
+        }.disposed(by: bag)
+        cancelSearch.bind{[weak self] _ in
             guard let self = self else {return}
-            self.allNews.accept(self.allNews.value + val)
+            self.repo.fetch()
+            
+        }.disposed(by: bag)
+        repo.articles.bind{[weak self] val in
+            guard let self = self else {return}
+            self.allNews.onNext(val)
+
         }.disposed(by: bag)
         selectedInterest.bind{ [weak self] category in
             guard let self = self else {return}
-            self.selectedCategory = category
+            self.repo.category.accept(category)
+            self.repo.fetch()
+        }.disposed(by: bag)
+        searchObserver.subscribe{[weak self] text in
+            guard let self = self else {return}
+            guard let text = text.element else {return}
+            guard let text = text else {return}
+            if text.isEmpty{
+                self.repo.fetch()
+                
+            }else{
+                var results = [Article]()
+                try? self.allNews.value().forEach { article in
+                    guard let desc = article.articleDescription else {return}
+                    guard let author = article.author else {return}
+                    if article.title.contains(text.lowercased()){
+                        results.append(article)
+                    }
+                    
+                    if desc.lowercased().contains(text.lowercased()){
+                        results.append(article)
+                    }
+                    
+                    if author.lowercased().contains(text.lowercased()){
+                        results.append(article)
+                    }
+                    
+                    
+                }
+                self.allNews.onNext(results)
+            }
+            //            self.searchList.onNext(results)
         }.disposed(by: bag)
     }
 }

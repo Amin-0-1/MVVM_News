@@ -14,6 +14,7 @@ enum UDKeys:String{
     case isFirstInit
     case country
     case interests
+    case business,entertainment,general,health,science,sports,technology
 }
 class MyUserDefaults{
     let shared = MyUserDefaults()

@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum NewsTargets{
-    case fetch(category:Categories,country:String)
+    case fetch(category:String,country:String)
 }
 extension NewsTargets:TargetType{
     var baseURL: URL {
