@@ -46,5 +46,5 @@ open .xcworkspace
 ```
 # Requirements
 * Xcode 12.2 at least
-* iOS 12+
+* iOS 13+
 * Swift 5
