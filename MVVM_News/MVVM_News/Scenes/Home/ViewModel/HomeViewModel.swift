@@ -108,20 +108,20 @@ class HomeViewModel:HomeViewModelInterface{
             }else{
                 var results = [Article]()
                 try? self.allNews.value().forEach { article in
-                    guard let desc = article.articleDescription else {return}
-                    guard let author = article.author else {return}
+//                    guard let desc = article.articleDescription else {return}
+//                    guard let author = article.author else {return}
                     if article.title.contains(text.lowercased()){
                         results.append(article)
                     }
                     
-                    if desc.lowercased().contains(text.lowercased()){
-                        results.append(article)
-                    }
-                    
-                    if author.lowercased().contains(text.lowercased()){
-                        results.append(article)
-                    }
-                    
+//                    if desc.lowercased().contains(text.lowercased()){
+//                        results.append(article)
+//                    }
+//
+//                    if author.lowercased().contains(text.lowercased()){
+//                        results.append(article)
+//                    }
+//
                     
                 }
 //                    self.searchList.onNext(results)

@@ -46,6 +46,29 @@ class HomeVC: UIViewController , UISearchBarDelegate,ViewControllable{
 
         return UIMenu(title: "Categories", image: UIImage(systemName: "list.bullet.rectangle")!, children: actions)
     }
+    
+    private func configureTable(){
+        uiTableView.rowHeight = UITableView.automaticDimension
+        uiTableView.estimatedRowHeight = 600
+        let nib = UINib(nibName: NewsCell._Name, bundle: nil)
+        uiTableView.register(nib, forCellReuseIdentifier: NewsCell._ID)
+    }
+    func setupSearchBar() {
+        
+        let sc = UISearchController(searchResultsController: nil)
+//        sc.delegate = self
+        sc.searchBar.delegate = self
+        sc.obscuresBackgroundDuringPresentation = false
+        sc.searchBar.placeholder = "Search for something eg CNN"
+        
+        navigationItem.searchController = sc
+        sc.searchBar.rx.text.bind(to: viewModel.searchObserver).disposed(by: bag)
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.cancelSearch.onNext(())
+    }
+
     private func bind(){
         viewModel.allNews.bind(to: uiTableView.rx.items){ (table: UITableView, index: Int, element: Article) in
             guard let cell = table.dequeueReusableCell(withIdentifier: NewsCell._ID) as? NewsCell else {fatalError("unable to dequeue cell")}
@@ -71,30 +94,7 @@ class HomeVC: UIViewController , UISearchBarDelegate,ViewControllable{
             guard let self = self else {return}
             self.hideLoading()
         }.disposed(by: bag)
-        
-    }
-    private func configureTable(){
-        uiTableView.rowHeight = UITableView.automaticDimension
-        uiTableView.estimatedRowHeight = 600
-        let nib = UINib(nibName: NewsCell._Name, bundle: nil)
-        uiTableView.register(nib, forCellReuseIdentifier: NewsCell._ID)
-    }
-    func setupSearchBar() {
-        
-        let sc = UISearchController(searchResultsController: nil)
-//        sc.delegate = self
-        sc.searchBar.delegate = self
-        sc.obscuresBackgroundDuringPresentation = false
-        sc.searchBar.placeholder = "Search for something eg CNN"
-        
-        navigationItem.searchController = sc
     }
 
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.cancelSearch.onNext(())
-    }
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchBar.rx.text.bind(to: viewModel.searchObserver).disposed(by: bag)
-    }
 
 }

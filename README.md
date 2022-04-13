@@ -1,7 +1,7 @@
 # MVVM_News
  
 `
-This repo is simulating a news prodcast application, it gives your your top news based on the region you are and what you are interested about
+This repo is simulating a news prodcast application, it gives you your top news based on the region you are and what you are interested about
 `
 
 # ScreenShots
@@ -24,6 +24,7 @@ This repo is simulating a news prodcast application, it gives your your top news
 
 
 # 3<sup>rd</sup> parties libraries and tools
+* Swift Package Manager(SPM)
 * RxSwift
 * RxCoca
 * SDWebImage
