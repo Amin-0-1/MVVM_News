@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 import Toast
 class ConfigurationsVC: UIViewController,ViewControllable{
-
+    
     
     @IBOutlet private weak var uiFlagImage: UIImageView!
     @IBOutlet private weak var uiTextField: UITextField!
@@ -27,6 +27,7 @@ class ConfigurationsVC: UIViewController,ViewControllable{
         bag = DisposeBag()
         viewModel = ConfigurationsViewModel()
         registerCollectionCell()
+        uiInterestView.collectionViewLayout = createLeftAlignedLayout()
         configurePicker()
         bind()
     }
@@ -48,11 +49,46 @@ class ConfigurationsVC: UIViewController,ViewControllable{
         }.disposed(by: bag)
         
     }
+    
+    private func createLeftAlignedLayout() -> UICollectionViewLayout {
+      let item = NSCollectionLayoutItem(          // this is your cell
+        layoutSize: NSCollectionLayoutSize(
+          widthDimension: .estimated(40),
+          heightDimension: .absolute(48)
+        )
+      )
+      
+      let group = NSCollectionLayoutGroup.horizontal(
+        layoutSize: .init(
+          widthDimension: .fractionalWidth(1.0),  // 100% width as inset by its Section
+          heightDimension: .estimated(50)         // variable height; allows for multiple rows of items
+        ),
+        subitems: [item]
+      )
+      group.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
+      group.interItemSpacing = .fixed(10)         // horizontal spacing between cells
+      let section = NSCollectionLayoutSection(group: group) // contains set of groups
+      section.interGroupSpacing = 10 // space between each cell the and the obove
+      return UICollectionViewCompositionalLayout(section: section)
+    }
+    
     private func registerCollectionCell(){
-        let layout = self.uiInterestView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = UICollectionViewFlowLayout.automaticSize
-        layout.estimatedItemSize = CGSize(width: 90, height: 50)
-        
+
+//
+//        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+//
+//        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right:0)
+////        layout.itemSize = CGSize(width: view.frame.width/3, height: view.frame.width/3)
+//        layout.itemSize = UICollectionViewFlowLayout.automaticSize
+//        layout.estimatedItemSize = CGSize(width: 90, height: 50)
+//        layout.minimumInteritemSpacing = 5
+//        layout.minimumLineSpacing = 5
+//
+//        uiInterestView.collectionViewLayout = layout
+////
+//
+
+
         let nib = UINib(nibName: InterestCell._Name, bundle: nil)
         uiInterestView.register(nib, forCellWithReuseIdentifier: InterestCell._ID )
     }
@@ -72,7 +108,7 @@ class ConfigurationsVC: UIViewController,ViewControllable{
         uiStack.layer.borderWidth = 0.6
         uiStack.layer.cornerRadius = 12
         uiStack.layer.masksToBounds = true
-     
+        
         uiFlagImage.layer.cornerRadius = uiFlagImage.frame.height / 2
     }
     
@@ -117,7 +153,7 @@ extension ConfigurationsVC:CountryPickerViewDelegate,CountryPickerViewDataSource
 extension ConfigurationsVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.interestCount.value
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -27,7 +27,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="aIn-38-5gu">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="492"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="642"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="please complete the following for getting relevent news." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJh-bD-Sfq">
                                     <rect key="frame" x="50" y="50" width="314" height="53"/>
@@ -73,7 +73,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zr6-25-M8l">
-                                    <rect key="frame" x="50" y="274.5" width="314" height="128.5"/>
+                                    <rect key="frame" x="50" y="274.5" width="314" height="278.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Myg-wI-P2n">
                                             <rect key="frame" x="0.0" y="0.0" width="314" height="20.5"/>
@@ -82,10 +82,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="rQ2-ad-Ka6">
-                                            <rect key="frame" x="0.0" y="28.5" width="314" height="100"/>
+                                            <rect key="frame" x="0.0" y="28.5" width="314" height="250"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="100" id="KWj-bO-oXJ"/>
+                                                <constraint firstAttribute="height" constant="250" id="KWj-bO-oXJ"/>
                                             </constraints>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VEk-gV-i7i">
                                                 <size key="itemSize" width="0.0" height="0.0"/>
@@ -102,7 +102,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6h8-XH-ZEF">
-                                    <rect key="frame" x="50" y="453" width="314" height="31"/>
+                                    <rect key="frame" x="50" y="603" width="314" height="31"/>
                                     <subviews>
                                         <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZq-va-oRI">
                                             <rect key="frame" x="0.0" y="0.0" width="104.5" height="31"/>
