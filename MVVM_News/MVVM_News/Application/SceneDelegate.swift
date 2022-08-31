@@ -15,15 +15,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         guard let scene = (scene as? UIWindowScene) else { return }
-        let uiWindow = UIWindow(windowScene: scene)
-        if StartingPoint.isFirstInit(window: uiWindow){
-            let vc = OnBoardingVC()
-            uiWindow.rootViewController = UINavigationController(rootViewController: vc)
-            self.window = uiWindow
-            uiWindow.makeKeyAndVisible()
-        }else{
-            StartingPoint.navigateToHome()
-        }
+        self.window = UIWindow(windowScene: scene)
+        let appCoordinator = AppCoordinator(window: window)
+        appCoordinator.start()
+//        if StartingPoint.isFirstInit(window: uiWindow){
+//            let vc = OnBoardingVC()
+//            uiWindow.rootViewController = UINavigationController(rootViewController: vc)
+//            self.window = uiWindow
+//            uiWindow.makeKeyAndVisible()
+//        }else{
+//            StartingPoint.navigateToHome()
+//        }
         
     }
 

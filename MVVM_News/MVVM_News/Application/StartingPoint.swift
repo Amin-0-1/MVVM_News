@@ -20,7 +20,6 @@ class StartingPoint{
         guard let window = window else {return}
         let navigation = UINavigationController(rootViewController: vc)
         navigation.navigationItem.largeTitleDisplayMode = .automatic
-        navigation
         window.rootViewController = navigation
         window.makeKeyAndVisible()
     }

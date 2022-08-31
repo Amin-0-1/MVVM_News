@@ -37,6 +37,7 @@
 		30829EFF27FEE3B100B06773 /* OnBoardingElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30829EFE27FEE3B100B06773 /* OnBoardingElement.swift */; };
 		30829F0627FEFAD900B06773 /* ConfigurationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30829F0427FEFAD900B06773 /* ConfigurationsVC.swift */; };
 		30829F0727FEFAD900B06773 /* ConfigurationsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30829F0527FEFAD900B06773 /* ConfigurationsVC.xib */; };
+		30A68109283A7013005ED4C2 /* AppCoordinating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A68108283A7013005ED4C2 /* AppCoordinating.swift */; };
 		30B4E9FD2800B08900F8E123 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4E9FC2800B08900F8E123 /* Constants.swift */; };
 		30B4EA012800B5A100F8E123 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4EA002800B5A100F8E123 /* NewsModel.swift */; };
 		30B4EA042800D8DA00F8E123 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 30B4EA032800D8DA00F8E123 /* Realm */; };
@@ -79,6 +80,7 @@
 		30829EFE27FEE3B100B06773 /* OnBoardingElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingElement.swift; sourceTree = "<group>"; };
 		30829F0427FEFAD900B06773 /* ConfigurationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationsVC.swift; sourceTree = "<group>"; };
 		30829F0527FEFAD900B06773 /* ConfigurationsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigurationsVC.xib; sourceTree = "<group>"; };
+		30A68108283A7013005ED4C2 /* AppCoordinating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinating.swift; sourceTree = "<group>"; };
 		30B4E9FC2800B08900F8E123 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		30B4EA002800B5A100F8E123 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		30B4EA082800DA1C00F8E123 /* NewsItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemModel.swift; sourceTree = "<group>"; };
@@ -149,10 +151,8 @@
 		3024928F27FD9AE200CA6DCD /* MVVM_News */ = {
 			isa = PBXGroup;
 			children = (
-				300BAC0028006A1000B63C7F /* Base */,
-				302492DB27FDB38700CA6DCD /* Extensions */,
-				302492AD27FD9EE000CA6DCD /* Scenes */,
-				303F43EB280162A200D53926 /* WebpageScene */,
+				30A68106283A4B04005ED4C2 /* Common */,
+				302492AD27FD9EE000CA6DCD /* Features */,
 				302492BB27FDA43300CA6DCD /* Repository */,
 				302492AC27FD9ED600CA6DCD /* Application */,
 				3024929C27FD9AE300CA6DCD /* Assets.xcassets */,
@@ -171,7 +171,7 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		302492AD27FD9EE000CA6DCD /* Scenes */ = {
+		302492AD27FD9EE000CA6DCD /* Features */ = {
 			isa = PBXGroup;
 			children = (
 				302492AE27FD9EF700CA6DCD /* ONBoarding */,
@@ -179,15 +179,16 @@
 				302492C327FDA65100CA6DCD /* Home */,
 				303F43E228015F8B00D53926 /* Details */,
 			);
-			path = Scenes;
+			path = Features;
 			sourceTree = "<group>";
 		};
 		302492AE27FD9EF700CA6DCD /* ONBoarding */ = {
 			isa = PBXGroup;
 			children = (
+				30A6810B283A7220005ED4C2 /* Presentation */,
+				30A6810C283A7224005ED4C2 /* Domain */,
+				30A6810A283A721D005ED4C2 /* Data */,
 				302492AF27FD9F0600CA6DCD /* Model */,
-				302492B027FD9F0B00CA6DCD /* View */,
-				302492B127FD9F0F00CA6DCD /* ViewModel */,
 			);
 			path = ONBoarding;
 			sourceTree = "<group>";
@@ -195,7 +196,6 @@
 		302492AF27FD9F0600CA6DCD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				30829EFE27FEE3B100B06773 /* OnBoardingElement.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -207,14 +207,6 @@
 				302492A927FD9B1600CA6DCD /* OnBoardingVC.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		302492B127FD9F0F00CA6DCD /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				302492CF27FDB0C100CA6DCD /* ONBoardingViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		302492BB27FDA43300CA6DCD /* Repository */ = {
@@ -300,6 +292,7 @@
 		303F43E228015F8B00D53926 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				303F43EB280162A200D53926 /* WebpageScene */,
 				303F43E328015F9C00D53926 /* View */,
 				303F43E428015F9F00D53926 /* ViewModel */,
 			);
@@ -369,6 +362,48 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		30A68106283A4B04005ED4C2 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				30A68107283A6FF3005ED4C2 /* Starting point */,
+				300BAC0028006A1000B63C7F /* Base */,
+				302492DB27FDB38700CA6DCD /* Extensions */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		30A68107283A6FF3005ED4C2 /* Starting point */ = {
+			isa = PBXGroup;
+			children = (
+				30A68108283A7013005ED4C2 /* AppCoordinating.swift */,
+			);
+			path = "Starting point";
+			sourceTree = "<group>";
+		};
+		30A6810A283A721D005ED4C2 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				30829EFE27FEE3B100B06773 /* OnBoardingElement.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		30A6810B283A7220005ED4C2 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				302492B027FD9F0B00CA6DCD /* View */,
+				302492CF27FDB0C100CA6DCD /* ONBoardingViewModel.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		30A6810C283A7224005ED4C2 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
 		30B4E9FE2800B57700F8E123 /* Request */ = {
 			isa = PBXGroup;
 			children = (
@@ -418,6 +453,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 302492A427FD9AE300CA6DCD /* Build configuration list for PBXNativeTarget "MVVM_News" */;
 			buildPhases = (
+				3041BEDA288D7C9E00A03FE5 /* ShellScript */,
 				3024928927FD9AE200CA6DCD /* Sources */,
 				3024928A27FD9AE200CA6DCD /* Frameworks */,
 				3024928B27FD9AE200CA6DCD /* Resources */,
@@ -503,6 +539,28 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3041BEDA288D7C9E00A03FE5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"\"$SRCROOT/R.generated.swift\"",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3024928927FD9AE200CA6DCD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -530,6 +588,7 @@
 				302492CC27FDA6C900CA6DCD /* StartingPoint.swift in Sources */,
 				300BAC0C28007CBA00B63C7F /* NewsCell.swift in Sources */,
 				302492AA27FD9B1600CA6DCD /* OnBoardingVC.swift in Sources */,
+				30A68109283A7013005ED4C2 /* AppCoordinating.swift in Sources */,
 				30829F0627FEFAD900B06773 /* ConfigurationsVC.swift in Sources */,
 				300BAC0228006A1F00B63C7F /* ViewControllable.swift in Sources */,
 				30D7C9D827FF4F2C00495530 /* InterestCell.swift in Sources */,
